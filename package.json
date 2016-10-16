@@ -1,0 +1,23 @@
+{
+  "name": "flow-brunch",
+  "version": "0.1.0",
+  "description": "Adds Flow support to Brunch",
+  "author": "Michael Hogg",
+  "license": "MIT",
+  "homepage": "https://github.com/michaelhogg/flow-brunch",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:michaelhogg/flow-brunch.git"
+  },
+  "main": "./index.js",
+  "scripts": {
+    "test": "node_modules/.bin/eslint index.js"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "flow-bin": "^0.33.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.8.0"
+  }
+}
