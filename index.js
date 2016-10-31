@@ -108,7 +108,8 @@ function formatErrors(lintPath, flowStdout) {
 class FlowLinter {
 
     constructor(brunchConfig) {
-        this.config = (brunchConfig && brunchConfig.plugins && brunchConfig.plugins.flowtype) || {};
+        const cfg = (brunchConfig && brunchConfig.plugins && brunchConfig.plugins.flowtype) || {};
+        this.warnOnly = (typeof cfg.warnOnly === 'boolean') ? cfg.warnOnly : false;
         try {
             // Start Flow server (if not already started).
             childProcess.execFileSync(flow, ['status']);
@@ -119,13 +120,18 @@ class FlowLinter {
     }
 
     lint(data, path) {
+        const context = this;
         return new Promise(function (resolve, reject) {
             childProcess.execFile(flow, ['status', '--json', '--strip-root'], function (err, stdout, stderr) {
-                const formattedErrors = formatErrors(path, stdout);
+                let formattedErrors = formatErrors(path, stdout);
                 if (formattedErrors === '') {
                     resolve();
                 } else {
-                    reject('Flow reported:\n' + formattedErrors);
+                    formattedErrors = 'Flow reported:\n' + formattedErrors;
+                    if (context.warnOnly) {
+                        formattedErrors = 'warn: ' + formattedErrors;
+                    }
+                    reject(formattedErrors);
                 }
             });
         });
