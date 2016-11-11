@@ -61,21 +61,23 @@ class FlowLinter {
     }
 
     lint(data, path) {
-        const context = this;
+
+        const flowlinter = this;
+
         return new Promise(function (resolve, reject) {
-            childProcess.execFile(flow, ['status', '--json', '--strip-root'], function (err, stdout, stderr) {
-                let formattedErrors = formatErrors(path, stdout);
-                if (formattedErrors === '') {
+            flowlinter.lintingMethod(data, path, flowlinter.lintingOptions, function (formattedErrors) {
+                if (formattedErrors.length === 0) {
                     resolve();
                 } else {
-                    formattedErrors = 'Flow reported:\n' + formattedErrors;
-                    if (context.warnOnly) {
-                        formattedErrors = 'warn: ' + formattedErrors;
+                    let output = 'Flow reported:\n' + formattedErrors.join('\n\n' + '-'.repeat(20) + '\n\n');
+                    if (flowlinter.warnOnly) {
+                        output = 'warn: ' + output;
                     }
-                    reject(formattedErrors);
+                    reject(output);
                 }
             });
         });
+
     }
 
 }
