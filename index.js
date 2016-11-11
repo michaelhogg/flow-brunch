@@ -112,7 +112,11 @@ class FlowLinter {
         this.warnOnly = (typeof cfg.warnOnly === 'boolean') ? cfg.warnOnly : false;
         try {
             // Start Flow server (if not already started).
-            childProcess.execFileSync(flow, ['status']);
+            childProcess.execFileSync(flow, ['status'], { stdio: [
+                'ignore',  // stdin  -- Attach to /dev/null
+                'ignore',  // stdout -- Attach to /dev/null
+                'inherit'  // stderr -- Attach to process.stderr so Flow server startup messages are displayed to user
+            ]});
         } catch (e) {
             // Probably a linting error, just ignore it for now.
             // @todo Handle this error properly.
