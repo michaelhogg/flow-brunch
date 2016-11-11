@@ -9,7 +9,7 @@ const errorFormatter = require('../error-formatter.js');
  *
  * @param  {string} lintPath   - Path of the source file being linted
  * @param  {string} flowStdout - STDOUT from Flow
- * @return {string}
+ * @return {Array<string>}
  */
 function formatErrors(lintPath, flowStdout) {
 
@@ -24,6 +24,6 @@ function formatErrors(lintPath, flowStdout) {
         }
     });
 
-    return formattedErrors.join('\n\n' + '-'.repeat(20) + '\n\n');
+    return formattedErrors;
 
 }
