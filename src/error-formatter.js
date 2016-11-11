@@ -22,10 +22,10 @@ function formatBlameMessage(msg) {
     if (msg.endline === msg.line) {
         // Single line of source code
         const marker = '^'.repeat((msg.end - msg.start) + 1);
-        lines.push(indent + chalk.red(marker + ' ' + type));
+        lines.push(indent + chalk.magenta(marker + ' ' + type));
     } else {
         // Multiple lines of source code
-        lines.push(indent + chalk.red('^ ' + type));
+        lines.push(indent + chalk.magenta('^ ' + type));
     }
 
     return lines;
