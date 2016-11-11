@@ -12,6 +12,25 @@ const methodStatus        = require('./src/methods/status.js');
 
 
 /**
+ * Get the specified Flow linting method.
+ *
+ * @param  {string} methodName
+ * @return {Function}
+ */
+function getLintingMethod(methodName) {
+
+    switch (methodName) {
+        case 'check-contents':
+            return methodCheckContents;
+        case 'status':
+            return methodStatus;
+        default:
+            throw new Error('Invalid Flow linting method: ' + methodName);
+    }
+
+}
+
+/**
  * @see brunch.io/docs/plugins#boilerplate-plugin
  * @see github.com/flowtype/flow-bin#api
  */
