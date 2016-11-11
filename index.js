@@ -37,8 +37,15 @@ function getLintingMethod(methodName) {
 class FlowLinter {
 
     constructor(brunchConfig) {
+
         const cfg = (brunchConfig && brunchConfig.plugins && brunchConfig.plugins.flowtype) || {};
-        this.warnOnly = (typeof cfg.warnOnly === 'boolean') ? cfg.warnOnly : false;
+
+        this.lintingMethod  = (typeof cfg.method   === 'string' ) ? getLintingMethod(cfg.method) : methodStatus;
+        this.warnOnly       = (typeof cfg.warnOnly === 'boolean') ? cfg.warnOnly : false;
+        this.lintingOptions = {
+            statusDelay: (typeof cfg.statusDelay === 'number') ? cfg.statusDelay : 250
+        };
+
         try {
             // Start Flow server (if not already started).
             childProcess.execFileSync(flow, ['status'], { stdio: [
@@ -50,6 +57,7 @@ class FlowLinter {
             // Probably a linting error, just ignore it for now.
             // @todo Handle this error properly.
         }
+
     }
 
     lint(data, path) {
