@@ -11,7 +11,7 @@
   },
   "main": "./index.js",
   "scripts": {
-    "test": "node_modules/.bin/eslint index.js"
+    "test": "eslint index.js src/*.js src/**/*.js"
   },
   "dependencies": {
     "chalk": "^1.1.3",
