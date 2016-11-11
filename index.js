@@ -1,7 +1,14 @@
 'use strict';
 
+// Node.js
 const childProcess = require('child_process');
-const flow         = require('flow-bin');
+
+// NPM
+const flow = require('flow-bin');
+
+// Flow linting methods
+const methodCheckContents = require('./src/methods/check-contents.js');
+const methodStatus        = require('./src/methods/status.js');
 
 
 /**
