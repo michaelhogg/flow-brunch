@@ -68,7 +68,7 @@ function formatFlowErrorObject(err) {
             default:
                 throw new Error('Unrecognised error message: ' + msg);
         }
-        return lines.map(line => '    ' + line).join('\n');
+        return lines.map(line => ' '.repeat(8) + line).join('\n');
     });
 
     return formattedLines.join('\n\n');

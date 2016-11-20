@@ -69,7 +69,8 @@ class FlowLinter {
                 if (formattedErrors.length === 0) {
                     resolve();
                 } else {
-                    let output = 'Flow reported:\n' + formattedErrors.join('\n\n' + '-'.repeat(20) + '\n\n');
+                    const errorSeparator = '\n\n' + ' '.repeat(4) + '-'.repeat(20) + '\n\n';
+                    let output = 'Flow reported:\n\n' + formattedErrors.join(errorSeparator) + '\n';
                     if (flowlinter.warnOnly) {
                         output = 'warn: ' + output;
                     }
