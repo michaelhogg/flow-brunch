@@ -72,7 +72,7 @@ class FlowLinter {
                     const errorSeparator = '\n\n' + ' '.repeat(4) + '-'.repeat(20) + '\n\n';
                     let output = 'Flow reported:\n\n' + formattedErrors.join(errorSeparator) + '\n';
                     if (flowlinter.warnOnly) {
-                        output = 'warn: ' + output;
+                        output = 'warn: ' + output;  // github.com/brunch/brunch/blob/2.9.1/lib/fs_utils/pipeline.js#L21
                     }
                     reject(output);
                 }
