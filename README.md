@@ -2,11 +2,38 @@
 
 Adds [Flow](https://flowtype.org) support to [Brunch](http://brunch.io).
 
+* [Installation](#installation)
 * [Overview](#overview)
   * [`status` method (default)](#status-method-default)
   * [`check-contents` method](#check-contents-method)
 * [Optional configuration](#optional-configuration)
 * [License](#license)
+
+
+## Installation
+
+Install the plugin:
+
+```bash
+npm install --save-dev flow-brunch
+```
+
+Ensure you have a [`.flowconfig`](https://flowtype.org/docs/advanced-configuration.html#flowconfig)
+file in the root directory of your Brunch project:
+
+```bash
+touch .flowconfig
+```
+
+If you haven't already, you'll need to configure Brunch to
+[strip Flow annotations](https://flowtype.org/docs/running.html).  For example:
+
+```bash
+npm install --save-dev babel-brunch
+npm install --save-dev babel-plugin-transform-flow-strip-types
+
+echo '{ "plugins": ["transform-flow-strip-types"] }' > .babelrc
+```
 
 
 ## Overview
