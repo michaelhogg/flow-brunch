@@ -68,16 +68,24 @@ function formatComment(block) {
  */
 function formatFlowErrorObject(err) {
 
-    const formattedLines = err.message.map(function (msg) {
-        switch (msg.type) {
-            case 'Blame':
-                return formatOperationOrBlame(msg);
-            case 'Comment':
-                return formatComment(msg);
-            default:
-                throw new Error('Unrecognised error message: ' + msg);
-        }
-    });
+    let formattedLines = [];
+
+    if (err.operation) {
+        formattedLines.push(formatOperationOrBlame(err.operation));
+    }
+
+    formattedLines = formattedLines.concat(
+        err.message.map(function (msg) {
+            switch (msg.type) {
+                case 'Blame':
+                    return formatOperationOrBlame(msg);
+                case 'Comment':
+                    return formatComment(msg);
+                default:
+                    throw new Error('Unrecognised error message: ' + msg);
+            }
+        })
+    );
 
     return formattedLines.join('\n\n');
 
