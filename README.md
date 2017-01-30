@@ -1,4 +1,8 @@
-# flow-brunch [![Build Status](https://travis-ci.org/michaelhogg/flow-brunch.svg?branch=master)](https://travis-ci.org/michaelhogg/flow-brunch)
+# flow-brunch
+
+[![NPM Version](https://img.shields.io/npm/v/flow-brunch.svg)](https://www.npmjs.com/package/flow-brunch)
+[![Build Status](https://travis-ci.org/michaelhogg/flow-brunch.svg?branch=master)](https://travis-ci.org/michaelhogg/flow-brunch)
+[![NPM License](https://img.shields.io/npm/l/flow-brunch.svg)](https://opensource.org/licenses/MIT)
 
 Adds [Flow](https://flowtype.org) support to [Brunch](http://brunch.io).
 
