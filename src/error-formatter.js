@@ -29,7 +29,7 @@ function formatBlameMessage(msg) {
     ];
 
     const indent = ' '.repeat(msg.start - 1);
-    const type   = '<' + msg.descr + '>';
+    const type   = msg.descr;
 
     if (msg.endline === msg.line) {
         // Single line of source code
