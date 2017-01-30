@@ -16,24 +16,24 @@ function indentAndJoinLines(lines) {
 }
 
 /**
- * Format a Blame message object.
+ * Format an Operation block or a Blame message block.
  *
- * @param  {Object} msg
+ * @param  {Object} block
  * @return {string}
  */
-function formatBlameMessage(msg) {
+function formatOperationOrBlame(block) {
 
     let lines = [
-        chalk.cyan(msg.path + ':' + msg.line),
-        chalk.yellow(msg.context)
+        chalk.cyan(block.path + ':' + block.line),
+        chalk.yellow(block.context)
     ];
 
-    const indent = ' '.repeat(msg.start - 1);
-    const type   = msg.descr;
+    const indent = ' '.repeat(block.start - 1);
+    const type   = block.descr;
 
-    if (msg.endline === msg.line) {
+    if (block.endline === block.line) {
         // Single line of source code
-        const marker = '^'.repeat((msg.end - msg.start) + 1);
+        const marker = '^'.repeat((block.end - block.start) + 1);
         lines.push(indent + chalk.magenta(marker + ' ' + type));
     } else {
         // Multiple lines of source code
@@ -45,15 +45,15 @@ function formatBlameMessage(msg) {
 }
 
 /**
- * Format a Comment message object.
+ * Format a Comment message block.
  *
- * @param  {Object} msg
+ * @param  {Object} block
  * @return {string}
  */
-function formatCommentMessage(msg) {
+function formatComment(block) {
 
     const lines = [
-        chalk.red(msg.descr)
+        chalk.red(block.descr)
     ];
 
     return indentAndJoinLines(lines);
@@ -71,9 +71,9 @@ function formatFlowErrorObject(err) {
     const formattedLines = err.message.map(function (msg) {
         switch (msg.type) {
             case 'Blame':
-                return formatBlameMessage(msg);
+                return formatOperationOrBlame(msg);
             case 'Comment':
-                return formatCommentMessage(msg);
+                return formatComment(msg);
             default:
                 throw new Error('Unrecognised error message: ' + msg);
         }
