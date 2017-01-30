@@ -10,6 +10,9 @@ const flow = require('flow-bin');
 const methodCheckContents = require('./src/methods/check-contents.js');
 const methodStatus        = require('./src/methods/status.js');
 
+// Utilities
+const utils = require('./src/utils.js');
+
 
 /**
  * Get the specified Flow linting method.
@@ -46,16 +49,19 @@ class FlowLinter {
             statusDelay: (typeof cfg.statusDelay === 'number') ? cfg.statusDelay : 250
         };
 
-        try {
-            // Start Flow server (if not already started).
-            childProcess.execFileSync(flow, ['status'], { stdio: [
-                'ignore',  // stdin  -- Attach to /dev/null
-                'ignore',  // stdout -- Attach to /dev/null
-                'inherit'  // stderr -- Attach to process.stderr so Flow server startup messages are displayed to user
-            ]});
-        } catch (e) {
-            // Probably a linting error, just ignore it for now.
-            // @todo Handle this error properly.
+        if (utils.isProcessBrunchMaster()) {
+            // Only the Brunch master process needs to start the Flow server.
+            try {
+                // Start Flow server (if not already started).
+                childProcess.execFileSync(flow, ['status'], { stdio: [
+                    'ignore',  // stdin  -- Attach to /dev/null
+                    'ignore',  // stdout -- Attach to /dev/null
+                    'inherit'  // stderr -- Attach to process.stderr so Flow server startup messages are displayed to user
+                ]});
+            } catch (e) {
+                // Probably a linting error, just ignore it for now.
+                // @todo Handle this error properly.
+            }
         }
 
     }
