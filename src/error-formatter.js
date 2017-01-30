@@ -4,10 +4,22 @@ const chalk = require('chalk');
 
 
 /**
+ * Indent the specified lines, and then join them.
+ *
+ * @param  {Array<string>} lines
+ * @return {string}
+ */
+function indentAndJoinLines(lines) {
+
+    return lines.map(line => ' '.repeat(8) + line).join('\n');
+
+}
+
+/**
  * Format a Blame message object.
  *
  * @param  {Object} msg
- * @return {Array<string>}
+ * @return {string}
  */
 function formatBlameMessage(msg) {
 
@@ -28,7 +40,7 @@ function formatBlameMessage(msg) {
         lines.push(indent + chalk.magenta('^ ' + type));
     }
 
-    return lines;
+    return indentAndJoinLines(lines);
 
 }
 
@@ -36,7 +48,7 @@ function formatBlameMessage(msg) {
  * Format a Comment message object.
  *
  * @param  {Object} msg
- * @return {Array<string>}
+ * @return {string}
  */
 function formatCommentMessage(msg) {
 
@@ -44,7 +56,7 @@ function formatCommentMessage(msg) {
         chalk.red(msg.descr)
     ];
 
-    return lines;
+    return indentAndJoinLines(lines);
 
 }
 
@@ -57,18 +69,14 @@ function formatCommentMessage(msg) {
 function formatFlowErrorObject(err) {
 
     const formattedLines = err.message.map(function (msg) {
-        let lines = [];
         switch (msg.type) {
             case 'Blame':
-                lines = formatBlameMessage(msg);
-                break;
+                return formatBlameMessage(msg);
             case 'Comment':
-                lines = formatCommentMessage(msg);
-                break;
+                return formatCommentMessage(msg);
             default:
                 throw new Error('Unrecognised error message: ' + msg);
         }
-        return lines.map(line => ' '.repeat(8) + line).join('\n');
     });
 
     return formattedLines.join('\n\n');
