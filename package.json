@@ -9,6 +9,10 @@
     "type": "git",
     "url": "git@github.com:michaelhogg/flow-brunch.git"
   },
+  "files": [
+    "src",
+    "index.js"
+  ],
   "main": "./index.js",
   "scripts": {
     "test": "eslint index.js src/*.js src/**/*.js"
